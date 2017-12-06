@@ -16,3 +16,14 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+
+// quickly create an user via the command line
+Artisan::command('user:create', function () {
+    \App\User::create([
+        'name' => $this->ask('Name?'),
+        'email' => $this->ask('Email?'),
+        'password' => bcrypt($this->secret('Password?')),
+    ]);
+    $this->info('Account created ');
+});
